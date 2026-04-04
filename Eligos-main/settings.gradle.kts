@@ -1,23 +1,24 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+}
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+}
+
 rootProject.name = "Eligos"
-
-include(":eligos-core")
-include(":eligos-processor")
-include(":eligos-cli")
-include(":eligos-plugin")
-include(":eligos-formatter")
+include("eligos-plugin")
+include("eligos-cli")
+include("eligos-core")
+include("eligos-processor")
+include(
+    ":kt-references-analysis:analysis-api",
+    ":kt-references-analysis:analysis-api-fe10",
+    ":kt-references-analysis:analysis-api-impl-base",
+    ":kt-references-analysis:analysis-internal-utils",
+    ":kt-references-analysis:kt-references-fe10")
 include("eligos-issues")
-include(":kt-references-analysis:analysis-api")
-include(":kt-references-analysis:analysis-api-fe10")
-include(":kt-references-analysis:analysis-api-impl-base")
-include(":kt-references-analysis:analysis-internal-utils")
-include(":kt-references-analysis:kt-references-fe10")
-
-project(":eligos-core").projectDir = file("./Eligos/eligos-core")
-project(":eligos-processor").projectDir = file("./Eligos/eligos-processor")
-project(":eligos-cli").projectDir = file("./Eligos/eligos-cli")
-project(":eligos-plugin").projectDir = file("./Eligos/eligos-plugin")
-project(":eligos-formatter").projectDir = file("./Eligos/eligos-formatter")
-project(":kt-references-analysis:analysis-api-fe10").projectDir = file("./kt-references-analysis/analysis-api-fe10")
-project(":kt-references-analysis:analysis-api-impl-base").projectDir = file("./kt-references-analysis/analysis-api-impl-base")
-project(":kt-references-analysis:analysis-internal-utils").projectDir = file("./kt-references-analysis/analysis-internal-utils")
-project(":kt-references-analysis:kt-references-fe10").projectDir = file("./kt-references-analysis/kt-references-fe10")
+include("eligos-formatter")

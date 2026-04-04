@@ -1,26 +1,15 @@
-plugins {
-    kotlin("jvm") version "1.9.22"
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
-group = "org.jetbrains.kotlin"
-version = "1.0-SNAPSHOT"
-
-kotlin {
-    jvmToolchain(17)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
-    kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
-}
 
 dependencies {
-    // Kotlin compiler dependencies
-    compileOnly("org.jetbrains.kotlin:kotlin-compiler:1.9.22")
-    compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22")
+    api(project(":kt-references-analysis:analysis-internal-utils"))
+    api("org.jetbrains.kotlin:kotlin-compiler:1.9.22")
+}
+
+sourceSets {
+    main {
+
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
 }
