@@ -1,0 +1,25 @@
+{
+  "MetaInfo": {
+    "EligosVersion": "1.0-SNAPSHOT",
+    "EligosBuildTime": "2026-04-05T16:04:44.176349400+08:00[Asia/Shanghai]",
+    "Report Time": "2026-04-05T16:11:49.590680200+08:00[Asia/Shanghai]",
+    "Source Base Path": "C:/Kotlin/Eligos-main/Eligos-main/testData/kotlin-code-samples/circularceferences"
+  },
+  "Statistics": {
+    "JavaStatistics": {
+      "classNumber": "0",
+      "fileNumber": "0",
+      "lineNumber": "0",
+      "methodNumber": "0"
+    },
+    "KotlinStatistics": {
+      "classNumber": "5",
+      "fileNumber": "5",
+      "functionNumber": "5",
+      "lineNumber": "48",
+      "propertyNumber": "4"
+    },
+    "IssueStatistics": {}
+  },
+  "Issues": {}
+}

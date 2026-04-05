@@ -1,0 +1,42 @@
+{
+  "MetaInfo": {
+    "EligosVersion": "1.0-SNAPSHOT",
+    "EligosBuildTime": "2026-04-05T16:04:44.176349400+08:00[Asia/Shanghai]",
+    "Report Time": "2026-04-05T16:12:50.871312400+08:00[Asia/Shanghai]",
+    "Source Base Path": "C:/Kotlin/Eligos-main/Eligos-main/testData/kotlin-code-samples/compareDataObjectWithReference"
+  },
+  "Statistics": {
+    "JavaStatistics": {
+      "classNumber": "0",
+      "fileNumber": "0",
+      "lineNumber": "0",
+      "methodNumber": "0"
+    },
+    "KotlinStatistics": {
+      "classNumber": "0",
+      "fileNumber": "2",
+      "functionNumber": "2",
+      "lineNumber": "21",
+      "propertyNumber": "2"
+    },
+    "IssueStatistics": {
+      "Incomprehensible Java Facade Name": 1
+    }
+  },
+  "Issues": {
+    "Incomprehensible Java Facade Name": [
+      {
+        "issueName": "Incomprehensible Java Facade Name",
+        "severity": "suggestion",
+        "hasTopLevelFunction": true,
+        "hasTopLevelProperty": false,
+        "javaFacadeName": "UseDataObjectKt",
+        "confidenceLevel": "COMPLETELY_TRUSTWORTHY",
+        "layer": "FILE",
+        "affectedFiles": [
+          "/UseDataObject.kt"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "MetaInfo": {
+    "EligosVersion": "1.0-SNAPSHOT",
+    "EligosBuildTime": "2026-04-05T15:08:54.682522900+08:00[Asia/Shanghai]",
+    "Report Time": "2026-04-05T15:21:15.140927800+08:00[Asia/Shanghai]",
+    "Source Base Path": "C:/Kotlin/Eligos-main/Eligos-main/testData/kotlin-code-samples/kotlininternal"
+  },
+  "Statistics": {
+    "KotlinStatistics": {
+      "classNumber": "3",
+      "fileNumber": "3",
+      "functionNumber": "0",
+      "lineNumber": "14",
+      "propertyNumber": "0"
+    },
+    "JavaStatistics": {
+      "classNumber": "5",
+      "fileNumber": "3",
+      "lineNumber": "33",
+      "methodNumber": "0"
+    },
+    "IssueStatistics": {}
+  },
+  "Issues": {}
+}
