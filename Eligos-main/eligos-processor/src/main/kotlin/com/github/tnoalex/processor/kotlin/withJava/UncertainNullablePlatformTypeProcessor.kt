@@ -35,11 +35,7 @@ import org.slf4j.LoggerFactory
 class UncertainNullablePlatformTypeProcessor : IssueProcessor {
     override val severity: Severity = Severity.CODE_SMELL
     override val supportLanguage: List<Language> = listOf(JavaLanguage, KotlinLanguage)
-
-    // 【修改1】改用懒加载+可空类型，移除类初始化时的非法return
-    private val dataFlowValueFactory: DataFlowValueFactory? by lazy {
-        ApplicationContext.getBeanOfType(DataFlowValueFactory::class.java).firstOrNull()
-    }
+    val dataFlowValueFactory = ApplicationContext.getBeanOfType(DataFlowValueFactory::class.java).first()
 
     @EventListener(filterClazz = [KtFile::class])
     override fun process(psiFile: PsiFile) {
@@ -69,11 +65,7 @@ class UncertainNullablePlatformTypeProcessor : IssueProcessor {
             val bindingContext = expression.bindingContext
             val type = bindingContext.getType(baseExpr) ?: return
             if (type.isDynamic()) return
-
-            // 【修改2】检查DataFlowValueFactory是否为null，为null则跳过处理
-            val factory = dataFlowValueFactory ?: return
-            val nullability = getNullability(bindingContext, baseExpr, factory, type)
-
+            val nullability = getNullability(bindingContext, baseExpr, dataFlowValueFactory, type)
             if (nullability != Nullability.NOT_NULL) {
                 if (context.confidenceLevel <= NonNullAssertionOnPlatformTypeIssue.normal
                     && type.isFlexibleRecursive()
@@ -114,11 +106,7 @@ class UncertainNullablePlatformTypeProcessor : IssueProcessor {
             val expectedType = bindingContext[BindingContext.TYPE, expectedTypePsi] ?: return
             val leftExpr = expression.left
             val leftType = bindingContext.getType(leftExpr) ?: return
-
-            // 【修改3】检查DataFlowValueFactory是否为null，为null则跳过处理
-            val factory = dataFlowValueFactory ?: return
-            val nullability = getNullability(bindingContext, leftExpr, factory, leftType)
-
+            val nullability = getNullability(bindingContext, leftExpr, dataFlowValueFactory, leftType)
             if (!expectedType.isMarkedNullable &&
                 nullability != Nullability.NOT_NULL && leftType.isFlexibleRecursive()
             ) {
@@ -191,11 +179,7 @@ class UncertainNullablePlatformTypeProcessor : IssueProcessor {
             if (callerExpr !is KtExpression) return
             val callerType = bindingContext.getType(callerExpr) ?: return
             if (callerType.isDynamic()) return
-
-            // 【修改4】检查DataFlowValueFactory是否为null，为null则跳过处理
-            val factory = dataFlowValueFactory ?: return
-            val nullability = getNullability(bindingContext, callerExpr, factory, callerType)
-
+            val nullability = getNullability(bindingContext, callerExpr, dataFlowValueFactory, callerType)
             if (nullability != Nullability.NOT_NULL && callerType.isFlexibleRecursive()) {
                 context.reportIssue(
                     UncertainNullablePlatformCallerIssue(
@@ -217,11 +201,7 @@ class UncertainNullablePlatformTypeProcessor : IssueProcessor {
             }
             val type = bindingContext.getType(expression) ?: return
             if (type.isDynamic()) return
-
-            // 【修改5】检查DataFlowValueFactory是否为null，为null则跳过处理
-            val factory = dataFlowValueFactory ?: return
-            val nullability = getNullability(bindingContext, expression, factory, type)
-
+            val nullability = getNullability(bindingContext, expression, dataFlowValueFactory, type)
             if (nullability != Nullability.NOT_NULL && type.isFlexibleRecursive()) {
                 val target = expression.mainReference?.resolve()
                 if (target !is KtProperty) {
@@ -240,6 +220,7 @@ class UncertainNullablePlatformTypeProcessor : IssueProcessor {
                 }
             }
         }
+
 
         override fun visitProperty(property: KtProperty) {
             if (property.isLocal) return super.visitProperty(property)
