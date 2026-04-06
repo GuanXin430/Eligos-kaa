@@ -15,6 +15,7 @@ abstract class AbstractCommonProcessor : IssueProcessor {
         }
     }
 
+
     protected abstract fun createShearSpace(): ShareSpace
 }
 
