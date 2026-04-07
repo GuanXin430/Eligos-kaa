@@ -48,6 +48,9 @@ subprojects {
     repositories {
         mavenLocal()
         maven {
+            url = uri("https://packages.jetbrains.team/maven/p/ij/intellij-dependencies")
+        }
+        maven {
             url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-ide-plugin-dependencies/")
         }
         maven {
