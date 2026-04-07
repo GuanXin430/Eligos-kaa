@@ -1,0 +1,60 @@
+{
+  "MetaInfo": {
+    "EligosVersion": "1.0-SNAPSHOT",
+    "EligosBuildTime": "2026-04-07T18:29:25.098169600+08:00[Asia/Shanghai]",
+    "Report Time": "2026-04-07T18:54:55.686348400+08:00[Asia/Shanghai]",
+    "Source Base Path": "C:/Kotlin/Eligos-main/Eligos-main/testData/kotlin-code-samples/complexmethods"
+  },
+  "Statistics": {
+    "KotlinStatistics": {
+      "classNumber": "0",
+      "fileNumber": "1",
+      "functionNumber": "2",
+      "lineNumber": "54",
+      "propertyNumber": "2"
+    },
+    "JavaStatistics": {
+      "classNumber": "0",
+      "fileNumber": "0",
+      "lineNumber": "0",
+      "methodNumber": "0"
+    },
+    "IssueStatistics": {
+      "Complex Kotlin Function": 1,
+      "Use When Instead Of Cascade If": 1
+    }
+  },
+  "Issues": {
+    "Complex Kotlin Function": [
+      {
+        "issueName": "Complex Kotlin Function",
+        "severity": "code smell",
+        "circleComplexity": 10,
+        "confidenceLevel": "COMPLETELY_TRUSTWORTHY",
+        "functionSignature": "complexmethods.ccSample1(p1,p2)",
+        "layer": "MEMBER",
+        "startLine": 17,
+        "valueParamList": [
+          "p1",
+          "p2"
+        ],
+        "affectedFiles": [
+          "/src/main/kotlin/complexmethods/MccabeSample0.kt"
+        ]
+      }
+    ],
+    "Use When Instead Of Cascade If": [
+      {
+        "issueName": "Use When Instead Of Cascade If",
+        "severity": "code smell",
+        "cascadeDepth": 3,
+        "startLine": 7,
+        "confidenceLevel": "COMPLETELY_TRUSTWORTHY",
+        "layer": "EXPRESSION",
+        "affectedFiles": [
+          "/src/main/kotlin/complexmethods/MccabeSample0.kt"
+        ]
+      }
+    ]
+  }
+}

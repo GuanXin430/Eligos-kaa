@@ -15,9 +15,7 @@ import org.jetbrains.kotlin.analysis.api.components.KtAnalysisScopeProvider
 import org.jetbrains.kotlin.analysis.api.lifetime.KtLifetimeToken
 import org.jetbrains.kotlin.analysis.project.structure.KtModule
 import org.jetbrains.kotlin.analysis.project.structure.KtModuleStructureInternals
-import org.jetbrains.kotlin.analysis.project.structure.allDirectDependencies
-import org.jetbrains.kotlin.analysis.project.structure.analysisExtensionFileContextModule
-import org.jetbrains.kotlin.analysis.providers.KotlinResolutionScopeProvider
+import org.jetbrains.kotlin.analysis.project.structure.KotlinResolutionScopeProvider
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.psiUtil.contains
 
@@ -27,11 +25,11 @@ class KtAnalysisScopeProviderImpl(
     private val shadowedScope: GlobalSearchScope
 ) : KtAnalysisScopeProvider() {
 
-    private val baseResolveScope by lazy(LazyThreadSafetyMode.PUBLICATION) {
+    private val baseResolveScope: GlobalSearchScope by lazy(LazyThreadSafetyMode.PUBLICATION) {
         KotlinResolutionScopeProvider.getInstance(analysisSession.useSiteModule.project).getResolutionScope(analysisSession.useSiteModule)
     }
 
-    private val resolveScope by lazy(LazyThreadSafetyMode.PUBLICATION) {
+    private val resolveScope: GlobalSearchScope by lazy(LazyThreadSafetyMode.PUBLICATION) {
         KtAnalysisScopeProviderResolveScope(baseResolveScope, analysisSession.useSiteModule, shadowedScope)
     }
 
@@ -65,7 +63,5 @@ private class KtAnalysisScopeProviderResolveScope(
 
 @OptIn(KtModuleStructureInternals::class)
 private fun VirtualFile.isFromGeneratedModule(useSiteModule: KtModule): Boolean {
-    val analysisContextModule = analysisExtensionFileContextModule ?: return false
-    if (analysisContextModule == useSiteModule) return true
-    return analysisContextModule in useSiteModule.allDirectDependencies()
+    return false
 }

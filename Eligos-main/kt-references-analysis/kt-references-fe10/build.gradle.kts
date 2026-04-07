@@ -1,6 +1,6 @@
 
 dependencies{
-    api("org.jetbrains.kotlin:kotlin-compiler:1.9.22")
+    api("org.jetbrains.kotlin:kotlin-compiler:2.3.0")
 }
 
 sourceSets {

@@ -1,0 +1,54 @@
+{
+  "MetaInfo": {
+    "EligosVersion": "1.0-SNAPSHOT",
+    "EligosBuildTime": "2026-04-07T19:18:51.421479500+08:00[Asia/Shanghai]",
+    "Report Time": "2026-04-07T19:22:04.480298600+08:00[Asia/Shanghai]",
+    "Source Base Path": "C:/Kotlin/Eligos-main/Eligos-main/testData/kotlin-code-samples/ignoreException"
+  },
+  "Statistics": {
+    "KotlinStatistics": {
+      "classNumber": "1",
+      "fileNumber": "1",
+      "functionNumber": "2",
+      "lineNumber": "19",
+      "propertyNumber": "0"
+    },
+    "JavaStatistics": {
+      "classNumber": "1",
+      "fileNumber": "1",
+      "lineNumber": "15",
+      "methodNumber": "2"
+    },
+    "IssueStatistics": {
+      "Missing Nullability Annotation On Java": 2
+    }
+  },
+  "Issues": {
+    "Missing Nullability Annotation On Java": [
+      {
+        "issueName": "Missing Nullability Annotation On Java",
+        "severity": "suggestion",
+        "classFqName": "ignoreException.UseInJava",
+        "functionName": "main",
+        "startLine": 6,
+        "confidenceLevel": "LOW",
+        "layer": "MEMBER",
+        "affectedFiles": [
+          "/src/main/java/ignoreException/UseInJava.java"
+        ]
+      },
+      {
+        "issueName": "Missing Nullability Annotation On Java",
+        "severity": "suggestion",
+        "classFqName": "ignoreException.UseInJava",
+        "functionName": "useThrows",
+        "startLine": 10,
+        "confidenceLevel": "LOW",
+        "layer": "MEMBER",
+        "affectedFiles": [
+          "/src/main/java/ignoreException/UseInJava.java"
+        ]
+      }
+    ]
+  }
+}

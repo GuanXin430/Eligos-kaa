@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.tasks.RunIdeTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.jetbrains.intellij") version "1.17.2"
@@ -40,7 +41,9 @@ tasks {
         targetCompatibility = "17"
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     patchPluginXml {

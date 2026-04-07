@@ -1,0 +1,25 @@
+{
+  "MetaInfo": {
+    "EligosVersion": "1.0-SNAPSHOT",
+    "EligosBuildTime": "2026-04-07T18:29:25.098169600+08:00[Asia/Shanghai]",
+    "Report Time": "2026-04-07T18:53:41.628364100+08:00[Asia/Shanghai]",
+    "Source Base Path": "C:/Kotlin/Eligos-main/Eligos-main/testData/kotlin-code-samples/compareDataObjectWithReference"
+  },
+  "Statistics": {
+    "KotlinStatistics": {
+      "classNumber": "0",
+      "fileNumber": "2",
+      "functionNumber": "2",
+      "lineNumber": "21",
+      "propertyNumber": "2"
+    },
+    "JavaStatistics": {
+      "classNumber": "0",
+      "fileNumber": "0",
+      "lineNumber": "0",
+      "methodNumber": "0"
+    },
+    "IssueStatistics": {}
+  },
+  "Issues": {}
+}

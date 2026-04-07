@@ -17,10 +17,13 @@ import org.jetbrains.kotlin.references.fe10.base.KtFe10Reference
 import org.jetbrains.kotlin.references.fe10.base.KtFe10ReferenceResolutionHelper
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.ImportedFromObjectCallableDescriptor
+import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.resolve.descriptorUtil.getImportableDescriptor
 
 
 class KtFe10SimpleNameReference(expression: KtSimpleNameExpression) : KtSimpleNameReference(expression), KtFe10Reference {
+    override val resolvesByNames: Collection<Name>
+        get() = listOf(Name.identifier(element.getReferencedName()))
 
     override fun canBeReferenceTo(candidateTarget: PsiElement): Boolean {
         return element.containingFile == candidateTarget.containingFile ||

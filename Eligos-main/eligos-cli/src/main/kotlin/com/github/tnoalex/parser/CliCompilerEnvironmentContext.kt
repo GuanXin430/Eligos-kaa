@@ -11,17 +11,6 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.local.CoreLocalFileSystem
 import com.intellij.openapi.vfs.local.CoreLocalVirtualFile
-import org.jetbrains.kotlin.analysis.api.KtAnalysisApiInternals
-import org.jetbrains.kotlin.analysis.api.descriptors.CliFe10AnalysisFacade
-import org.jetbrains.kotlin.analysis.api.descriptors.Fe10AnalysisFacade
-import org.jetbrains.kotlin.analysis.api.descriptors.KtFe10AnalysisSessionProvider
-import org.jetbrains.kotlin.analysis.api.descriptors.references.ReadWriteAccessCheckerDescriptorsImpl
-import org.jetbrains.kotlin.analysis.api.impl.base.references.HLApiReferenceProviderService
-import org.jetbrains.kotlin.analysis.api.lifetime.KtLifetimeTokenProvider
-import org.jetbrains.kotlin.analysis.api.lifetime.KtReadActionConfinementLifetimeTokenProvider
-import org.jetbrains.kotlin.analysis.api.session.KtAnalysisSessionProvider
-import org.jetbrains.kotlin.analysis.providers.KotlinModificationTrackerFactory
-import org.jetbrains.kotlin.analysis.providers.impl.KotlinStaticModificationTrackerFactory
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.config.addKotlinSourceRoots
 import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
@@ -35,13 +24,7 @@ import org.jetbrains.kotlin.cli.jvm.config.addJvmClasspathRoot
 import org.jetbrains.kotlin.cli.jvm.config.addJvmClasspathRoots
 import org.jetbrains.kotlin.cli.jvm.config.configureJdkClasspathRoots
 import org.jetbrains.kotlin.config.*
-import org.jetbrains.kotlin.idea.references.KotlinReferenceProviderContributor
-import org.jetbrains.kotlin.idea.references.ReadWriteAccessChecker
-import org.jetbrains.kotlin.psi.KotlinReferenceProvidersService
 import org.jetbrains.kotlin.psi.KtFile
-import org.jetbrains.kotlin.references.fe10.base.DummyKtFe10ReferenceResolutionHelper
-import org.jetbrains.kotlin.references.fe10.base.KtFe10KotlinReferenceProviderContributor
-import org.jetbrains.kotlin.references.fe10.base.KtFe10ReferenceResolutionHelper
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.calls.smartcasts.DataFlowValueFactory
 import org.jetbrains.kotlin.resolve.calls.smartcasts.DataFlowValueFactoryImpl
@@ -67,25 +50,13 @@ class CliCompilerEnvironmentContext(private val compilerSpec: KotlinCompilerSpec
     fun initCompilerEnv() {
         val compilerEnvironmentContext = createCompilerConfiguration()
         environment = createKotlinCoreEnvironment(compilerEnvironmentContext)
-        baseDir = CoreLocalVirtualFile(fileSystem, compilerSpec.srcPath.toFile(), compilerSpec.srcPath.isDirectory())
+        baseDir = fileSystem.findFileByPath(compilerSpec.srcPath.toString())!!
         bindingContext = generateBindingContext(
             environment,
             environment.getSourceFiles()
         )
-        val application = ApplicationManager.getApplication()
-        val resolutionHelper = DummyKtFe10ReferenceResolutionHelper(bindingContext)
-        (application as MockApplication).registerService(
-            KtFe10ReferenceResolutionHelper::class.java,
-            resolutionHelper
-        )
-        ApplicationContext.addBean(
-            resolutionHelper.javaClass.simpleName,
-            resolutionHelper,
-            SimpleSingletonBeanContainer
-        )
     }
 
-    @OptIn(KtAnalysisApiInternals::class)
     private fun createKotlinCoreEnvironment(
         configuration: CompilerConfiguration = CompilerConfiguration(),
         printStream: PrintStream = System.err,
@@ -112,17 +83,6 @@ class CliCompilerEnvironmentContext(private val compilerSpec: KotlinCompilerSpec
             "MockProject type expected, actual - ${projectCandidate.javaClass.simpleName}"
         }
 
-        project.registerService(
-            KotlinReferenceProviderContributor::class.java,
-            KtFe10KotlinReferenceProviderContributor::class.java
-        )
-
-        project.registerService(KotlinReferenceProvidersService::class.java, HLApiReferenceProviderService(project))
-        project.registerService(ReadWriteAccessChecker::class.java, ReadWriteAccessCheckerDescriptorsImpl())
-        project.registerService(Fe10AnalysisFacade::class.java, CliFe10AnalysisFacade())
-        project.registerService(KotlinModificationTrackerFactory::class.java, KotlinStaticModificationTrackerFactory())
-        project.registerService(KtLifetimeTokenProvider::class.java, KtReadActionConfinementLifetimeTokenProvider())
-        project.registerService(KtAnalysisSessionProvider::class.java, KtFe10AnalysisSessionProvider(project))
         return environment
     }
 

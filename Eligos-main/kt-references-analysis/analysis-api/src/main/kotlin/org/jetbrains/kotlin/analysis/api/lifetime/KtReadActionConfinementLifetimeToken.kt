@@ -9,22 +9,18 @@ package org.jetbrains.kotlin.analysis.api.lifetime
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.ModificationTracker
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.kotlin.analysis.api.*
-import org.jetbrains.kotlin.analysis.providers.createProjectWideOutOfBlockModificationTracker
 import kotlin.reflect.KClass
 
 public class KtReadActionConfinementLifetimeToken(project: Project) : KtLifetimeToken() {
-    private val modificationTracker = project.createProjectWideOutOfBlockModificationTracker()
-    private val onCreatedTimeStamp = modificationTracker.modificationCount
-
     override fun isValid(): Boolean {
-        return onCreatedTimeStamp == modificationTracker.modificationCount
+        return true
     }
 
     override fun getInvalidationReason(): String {
-        if (onCreatedTimeStamp != modificationTracker.modificationCount) return "PSI has changed since creation"
         error("Getting invalidation reason for valid validity token")
     }
 

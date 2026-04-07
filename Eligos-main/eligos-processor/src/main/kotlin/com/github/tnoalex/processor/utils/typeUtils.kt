@@ -6,13 +6,12 @@ import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.calls.smartcasts.DataFlowValueFactory
 import org.jetbrains.kotlin.resolve.calls.smartcasts.Nullability
 import org.jetbrains.kotlin.types.KotlinType
-import org.jetbrains.kotlin.util.javaslang.getOrNull
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun getNullability(
     bindingContext: BindingContext, expression: KtExpression,
     dataFlowValueFactory: DataFlowValueFactory, type: KotlinType
-): Nullability? {
+): Any? {
     val typeInfo = bindingContext[BindingContext.EXPRESSION_TYPE_INFO, expression]
     val dataFlowInfo = typeInfo?.dataFlowInfo ?: return null
     val completeNullabilityInfo = dataFlowInfo.completeNullabilityInfo
@@ -21,5 +20,5 @@ inline fun getNullability(
             ?: return null
     val dataFlowValue =
         dataFlowValueFactory.createDataFlowValue(expression, type, bindingContext, declarationDescriptor)
-    return completeNullabilityInfo[dataFlowValue].getOrNull()
+    return completeNullabilityInfo[dataFlowValue]
 }

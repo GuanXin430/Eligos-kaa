@@ -22,6 +22,7 @@ public fun AnnotationUseSiteTarget?.toFilter(): AnnotationUseSiteTargetFilter = 
     AnnotationUseSiteTarget.CONSTRUCTOR_PARAMETER -> ConstructorParameterAnnotationUseSiteTargetFilter
     AnnotationUseSiteTarget.SETTER_PARAMETER -> SetterParameterAnnotationUseSiteTargetFilter
     AnnotationUseSiteTarget.PROPERTY_DELEGATE_FIELD -> PropertyDelegateFieldAnnotationUseSiteTargetFilter
+    else -> AnyAnnotationUseSiteTargetFilter
 }
 
 public object AnyAnnotationUseSiteTargetFilter : AnnotationUseSiteTargetFilter {
